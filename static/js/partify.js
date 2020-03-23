@@ -3,16 +3,12 @@ $(function() {
     $('.status').hide().text("Umm, this is a little embarrasing.. That file is just too big for me...").fadeIn().fadeOut(5000);
   }
   function partify(){
-    // Hell no you're not
-//    if ($('.status').css('display') != 'none') {return}
     if ($('#wut').attr('src') === undefined) {return}
     if ($('#boring').get(0).files.length == 0) {return}
     if ($('#boring').get(0).files[0].size > 1024 * 128) {
       file_too_big();
       return;
     }
-
-    console.log('wtf');
     $('.status').hide().text("Please hold...").fadeIn(0);
     var jform = new FormData();
     jform.append('boring', $('#boring').get(0).files[0]);
@@ -45,9 +41,7 @@ $(function() {
       $('#wut').attr('src', url.createObjectURL(d));
       $('#wut').fadeIn();
     }).fail(function(xhr){
-      if (xhr.status === 413) {
-        file_too_big();
-      }
+      if (xhr.status === 413) {file_too_big()}
       else if (xhr.status === 415) {
         $('.status').hide().text("What is this monstrosity? Try uploading an image instead!").fadeIn().fadeOut(5000);
       }
@@ -70,12 +64,10 @@ $(function() {
       $('#contrast').prop('disabled', false);
       $('#duration').prop('disabled', false);
     }
-
     partify();
   });
 
   $('#boring').change(function(){partify()});
-
   $('#upload').click(function(){
     $('#wut').fadeOut(400,
       function() {$('#wut').attr('src', '')}
@@ -83,5 +75,4 @@ $(function() {
     $('.controls').fadeOut();
     $('#boring').click();
   });
-
 });
