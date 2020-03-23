@@ -1,0 +1,72 @@
+body {
+    font-family: 'Varela', sans-serif;
+    background-repeat: repeat;
+    background-image: url(/static/images/partybg.gif);
+    background-color: black;
+    margin: 0;
+}
+
+div.status {
+    font-size: 2em;
+    display: none;
+}
+
+div.main {
+    text-align: center;
+}
+
+div.controls {
+    display: none;
+    margin: 50px;
+}
+
+div.column {
+    text-align: center;
+    height: 100%;
+    width: 75%;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+
+}
+
+div.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+}
+
+.banner {
+    font-size: +30;
+    font-family: 'Permanent Marker', cursive;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin: 20;
+    padding: 20px;
+}
+
+#upload {
+    padding: 20px;
+    color: white;
+    background-color: rgb(180, 180, 180);
+    font-size: +30;
+    font-family: 'Varela', sans-serif;
+}
+
+img#wut {
+}
+
+input#boring {
+    display: none;
+}
+
+img.charity {
+    width: 15%;
+    min-width: 150px;
+    max-width: 200px;
+}
