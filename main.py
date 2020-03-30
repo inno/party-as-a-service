@@ -1,10 +1,19 @@
 import io
 import random
 from flask import Flask, render_template, request, send_file
+from flask_talisman import Talisman
 from PIL import Image, ImageEnhance, UnidentifiedImageError
 import PIL.ImageOps
 
 app = Flask(__name__)
+Talisman(
+    app,
+    content_security_policy={
+        "style-src": ["'self'", "https://fonts.googleapis.com"],
+        "font-src": ["'self'", "https://fonts.gstatic.com"],
+    },
+)
+
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 128
 
 
@@ -167,4 +176,4 @@ def partify_endpoint():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
