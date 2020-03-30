@@ -95,7 +95,6 @@ def partify(im,
     else:
         alpha = Image.new("L", im.size, (255))
     if contrast is not None:
-        print(f"mode: {im.mode}")
         im = ImageEnhance.Contrast(im.convert(mode="RGB")).enhance(contrast)
     single = im.convert(mode="L")
     gray = Image.new("RGB", im.size, (255, 255, 255))
