@@ -2,6 +2,7 @@ import io
 import random
 from flask import Flask, render_template, request, send_file
 from PIL import Image, ImageEnhance, UnidentifiedImageError
+import PIL.ImageOps
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 128
@@ -10,17 +11,30 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 128
 palettes = {
     "primary_smooth": (
         (0, 255, 0),  # Green
-        (127, 255, 0),
+        (127, 255, 0),  # Green/Yellow
         (255, 255, 0),  # Yellow
-        (255, 127, 0),
+        (255, 127, 0),  # Orange
         (255, 0, 0),  # Red
-        (255, 0, 127),
+        (255, 0, 127),  # Red/pink
         (255, 0, 255),  # Pink
-        (127, 0, 255),
+        (127, 0, 255),  # Purple
         (0, 0, 255),  # Blue
-        (0, 127, 255),
+        (0, 127, 255),  # Teal/blue?
         (0, 255, 255),  # Teal
-        (0, 255, 127),
+        (0, 255, 127),  # Blue/Green
+    ),
+    "party_parrot": (
+        (255, 107, 107),
+        (255, 107, 181),
+        (255, 107, 181),
+        (255, 105, 247),
+        (255, 138, 255),
+        (214, 140, 255),
+        (140, 181, 255),
+        (140, 255, 255),
+        (140, 255, 140),
+        (255, 214, 140),
+        (252, 139, 138),
     ),
 }
 
@@ -44,6 +58,7 @@ class UnknownPalette(Exception):
 def partify(im,
             contrast=1.5,
             duration=100,
+            invert=False,
             palette="primary_smooth",
             slack_resize=False,
             such_a_square=False):
@@ -52,6 +67,9 @@ def partify(im,
 
     if slack_resize:
         im.thumbnail((128, 128))
+
+    if invert is True:
+        im = PIL.ImageOps.invert(im.convert(mode="RGB"))
 
     if such_a_square:
         so_boring = io.BytesIO()
@@ -68,7 +86,8 @@ def partify(im,
     else:
         alpha = Image.new("L", im.size, (255))
     if contrast is not None:
-        im = ImageEnhance.Contrast(im).enhance(contrast)
+        print(f"mode: {im.mode}")
+        im = ImageEnhance.Contrast(im.convert(mode="RGB")).enhance(contrast)
     single = im.convert(mode="L")
     gray = Image.new("RGB", im.size, (255, 255, 255))
     gray.paste(single.convert(mode="RGB"), mask=alpha)
@@ -121,6 +140,7 @@ def partify_endpoint():
 
     contrast = request.form.get("contrast", 1.5)
     duration = request.form.get("duration", 100)
+    invert = boolean(request.form.get("invert", "false"))
     slack_resize = boolean(request.form.get("slack_resize", "true"))
     such_a_square = boolean(request.form.get("such_a_square", "false"))
 
@@ -140,6 +160,7 @@ def partify_endpoint():
         duration=duration,
         slack_resize=slack_resize,
         such_a_square=such_a_square,
+        invert=invert,
     )
     lit_file.seek(0)
     return send_file(lit_file, mimetype="image/gif")

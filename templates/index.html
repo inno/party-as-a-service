@@ -3,26 +3,26 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
       <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
       <link href="https://fonts.googleapis.com/css?family=Varela&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Sirin+Stencil&family=Permanent+Marker&display=swap" rel="stylesheet">
     </head>
     <body>
       <div class="main">
       <div class="column">
         <p class="banner">{{ submit_value }}</p></br>
-        <button id="upload">Upload Image</button></br>
+        <button id="upload">UPLOAD</button></br>
         <input type="file" id="boring" accept="image/*">
         <div class="controls">
           <label class="label" for="slack_resize">Resize for Slack</label>
           <input type="checkbox" id="slack_resize" checked></br>
-          <label class="label" for="such_a_square">Boring</label>
+          <label class="label" for="invert">Invert</label>
+          <input type="checkbox" id="invert"></br>
+          <label class="label" for="such_a_square">BORING</label>
           <input type="checkbox" id="such_a_square"></br>
           <label class="label">Contrast</label>
           <input type="range" id="contrast" step=0.1 min=0 max=2 value=1.5></br>
           <label>Speed</label><input type="range" id="duration" step=1 min=20 max=300 value=200></br>
         </div>
-        <img id="wut"/>
+        <div class="wutbox"><img id="wut"/></div>
         <div class="status"></div>
         <div class="footer">
           Like to party? Then please donate to charities helping with COVID-19</br>

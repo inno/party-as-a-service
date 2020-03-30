@@ -6,21 +6,21 @@ body {
     margin: 0;
 }
 
-div.status {
+.status {
     font-size: 2em;
     display: none;
 }
 
-div.main {
+.main {
     text-align: center;
 }
 
-div.controls {
+.controls {
     display: none;
     margin: 50px;
 }
 
-div.column {
+.column {
     text-align: center;
     height: 100%;
     width: 75%;
@@ -31,7 +31,7 @@ div.column {
 
 }
 
-div.footer {
+.footer {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -55,15 +55,21 @@ div.footer {
     color: white;
     background-color: rgb(180, 180, 180);
     font-size: +30;
-    font-family: 'Varela', sans-serif;
+    font-family: 'Sirin Stencil', sans-serif;
 }
 
-input#boring {
+#boring {
     display: none;
 }
 
-img.charity {
+.charity {
     width: 15%;
     min-width: 150px;
     max-width: 200px;
+}
+
+.wutbox {
+    width: 100%;
+    background-color: white;
+    padding-bottom: 100px;
 }

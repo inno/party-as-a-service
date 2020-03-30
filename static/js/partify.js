@@ -1,6 +1,7 @@
+var q = '';
 $(function() {
   function file_too_big() {
-    $('.status').hide().text("Umm, this is a little embarrasing.. That file is just too big for me...").fadeIn().fadeOut(5000);
+    $('.status').hide().text("Umm, this is a little embarrasing.. That file is just too big for me... Try something less than 128k").fadeIn().fadeOut(5000);
   }
   function partify(){
     if ($('#wut').attr('src') === undefined) {return}
@@ -15,15 +16,9 @@ $(function() {
     jform.append('contrast', $('#contrast').val());
     jform.append('duration', (parseInt($('#duration').attr('max')) + parseInt($('#duration').attr('min'))) - $('#duration').val());
     jform.append('slack_resize', $('#slack_resize').is(':checked'));
+    jform.append('invert', $('#invert').is(':checked'));
     jform.append('such_a_square', $('#such_a_square').is(':checked'));
-    $('.controls').fadeIn();
 
-    if ($('#slack_resize').is(':checked')) {
-      $('#wut').css('width', '');
-    }
-    else {
-      $('#wut').css('width', '100%');
-    }
     $.ajax({
       url: '/partify',
       type: 'POST',
@@ -36,6 +31,7 @@ $(function() {
       },
       data: jform
     }).done(function(d){
+      $('.controls').fadeIn();
       $('.status').hide();
       var url = window.URL || window.webkitURL;
       $('#wut').attr('src', url.createObjectURL(d));
@@ -53,6 +49,7 @@ $(function() {
   $('#contrast').change(function(){partify()});
   $('#duration').change(function(){partify()});
   $('#slack_resize').change(function(){partify()});
+  $('#invert').change(function(){partify()});
   $('#such_a_square').change(function(){
     if ($('#such_a_square').is(':checked')) {
       $('body').css('background-size', '0 0');
